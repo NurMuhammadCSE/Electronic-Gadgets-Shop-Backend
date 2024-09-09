@@ -12,7 +12,7 @@ app.use(cors())
 app.use("/api", router);
 
 app.get("/", (req, res) => {
-  res.send("Car Washing System");
+  res.send("Electronic Gadgets Shop");
 });
 
 app.use(globalErrorHandler);
