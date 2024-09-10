@@ -3,10 +3,10 @@ import { TReview } from "./review.interface";
 import { Review } from "./review.model";
 
 const addReview = async (
-  productId: string,
-  reviewData: Partial<TReview>
+  reviewData: Partial<TReview>,
+  productId: string
 ): Promise<TReview | any> => {
-  console.log(productId);
+  // console.log(productId);
   const session = await Review.startSession();
 
   const product = await Product.findById(productId);
@@ -40,7 +40,7 @@ const addReview = async (
 };
 
 const getReviewsByProductId = async (productId: string) => {
-  const reviews = await Review.find({ productId })
+  const reviews = await Review.find({ productId });
   // .populate(
   //   "userId",
   //   "name email"

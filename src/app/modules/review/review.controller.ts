@@ -6,14 +6,14 @@ import { reviewService } from "./review.service";
 
 const addReview = catchAsync(async (req: Request, res: Response) => {
   const { productId } = req.params;
-  console.log(productId)
-  const order = await reviewService.addReview(productId, req.body);
+  // console.log(productId)
+  const review = await reviewService.addReview(req.body, productId);
 
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
     message: "Review Created Successfully",
-    data: order,
+    data: review,
   });
 });
 
