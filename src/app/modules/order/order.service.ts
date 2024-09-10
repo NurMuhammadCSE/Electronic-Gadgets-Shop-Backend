@@ -5,7 +5,7 @@ import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
 import { JwtPayload } from "jsonwebtoken";
 
-const createOrder = async (payload: TOrder, user: JwtPayload) => {
+const createOrder = async (payload: TOrder, userId: JwtPayload) => {
   // console.log(payload);
   // Check if all products exist
   // const productsExist = await Promise.all(
@@ -44,25 +44,45 @@ const createOrder = async (payload: TOrder, user: JwtPayload) => {
   // });
 
   const order = new Order({
-    user: {
-      userName: user.name,
-      userEmail: user.email,
-    },
+    // user: {
+    //   userName: user.name,
+    //   userEmail: user.email,
+    // },
+    user: userId,
     products: productDetails,
     totalAmount: totalPrice,
     status: payload.status || "Pending",
     paymentMethod: "Cash On Delivery",
   });
-  
 
   await order.save();
   return order;
 };
 
-const getAllOrders = async () => {
-  const orders = await Order.find().populate("user").populate("products");
+// const getAllOrders = async (userId: string) => {
+//   // Query orders where the user matches the provided userId
+//   const orders = await Order.find({ user: userId })
+//   .select("+password")
+
+//   // console.log(orders);
+//   .populate("user") // Populate user details if needed
+//   .populate("products"); // Populate product details
+
+//   return orders;
+// };
+
+const getAllOrders = async (userId: string) => {
+  // Query orders where the user matches the provided userId
+  const orders = await Order.find({ user: userId })
+    .populate({
+      path: "user",
+      select: "-password" // Exclude the password field when populating the user
+    })
+    .populate("products"); // Populate product details
+
   return orders;
 };
+
 
 const getSingleOrder = async (orderId: string) => {
   const order = await Order.findById(orderId)

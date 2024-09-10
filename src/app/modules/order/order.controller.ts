@@ -5,7 +5,7 @@ import { orderService } from "./order.service";
 import { Request, Response } from "express";
 
 const createOrder = catchAsync(async (req: Request, res: Response) => {
-  const order = await orderService.createOrder(req.body, req.user);
+  const order = await orderService.createOrder(req.body, req.userId);
   // console.log(req.body)
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
@@ -16,11 +16,13 @@ const createOrder = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllOrders = catchAsync(async (req: Request, res: Response) => {
-  const orders = await orderService.getAllOrders();
+  const userId = req.user._id;
+  // console.log(userId)
+  const orders = await orderService.getAllOrders(userId);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Orders Retrieved Successfully",
+    message: "User Orders Retrieved Successfully",
     data: orders,
   });
 });

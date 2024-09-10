@@ -4,9 +4,13 @@ import { string } from "zod";
 
 const orderSchema: Schema = new Schema<TOrder>(
   {
+    // user: {
+    //   userName: { type: String },
+    //   userEmail: { type: String },
+    // },
     user: {
-      userName: { type: String },
-      userEmail: { type: String },
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     products: [
       {

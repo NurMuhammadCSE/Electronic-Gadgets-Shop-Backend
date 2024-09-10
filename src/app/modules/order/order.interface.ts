@@ -1,12 +1,12 @@
 import { Schema } from "mongoose";
 
 export type TOrder = {
-  // user: Schema.Types.ObjectId; // User ID (reference to User model)
+  user: Schema.Types.ObjectId; // User ID (reference to User model)
   // products: { productId: Schema.Types.ObjectId; quantity: number }[];
-  user: {
-    userName: string;
-    uerEmail: string;
-  };
+  // user: {
+  //   userName: string;
+  //   uerEmail: string;
+  // };
   products: Array<{
     product: Schema.Types.ObjectId;
     quantity: number;
