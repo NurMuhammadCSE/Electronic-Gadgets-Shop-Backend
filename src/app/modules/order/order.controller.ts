@@ -5,7 +5,8 @@ import { orderService } from "./order.service";
 import { Request, Response } from "express";
 
 const createOrder = catchAsync(async (req: Request, res: Response) => {
-  const order = await orderService.createOrder(req.body, req.userId);
+  const order = await orderService.createOrder(req.body, req.user);
+  // console.log(req.body)
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,

@@ -5,24 +5,25 @@ import AppError from "../../errors/AppError";
 import httpStatus from "http-status";
 import { JwtPayload } from "jsonwebtoken";
 
-const createOrder = async (payload: TOrder, userId: JwtPayload) => {
+const createOrder = async (payload: TOrder, user: JwtPayload) => {
+  // console.log(payload);
   // Check if all products exist
-  const productsExist = await Promise.all(
-    payload.products.map(async (item: any) =>
-      Product.exists({ _id: item.productId })
-    )
-  );
+  // const productsExist = await Promise.all(
+  //   payload.products.map(async (item: any) =>
+  //     Product.exists({ _id: item._id })
+  //   )
+  // );
 
-  if (productsExist.includes(null)) {
-    throw new AppError(httpStatus.NOT_FOUND, "One or more products not found");
-  }
+  // if (productsExist.includes(null)) {
+  //   throw new AppError(httpStatus.NOT_FOUND, "One or more products not found");
+  // }
 
   let totalPrice = 0;
 
   // Calculate the total price
   const productDetails = await Promise.all(
     payload.products.map(async (item: any) => {
-      const product = await Product.findById(item.productId);
+      const product = await Product.findById(item.product);
       if (product) {
         totalPrice += product.price * item.quantity;
         return {
@@ -35,17 +36,28 @@ const createOrder = async (payload: TOrder, userId: JwtPayload) => {
     })
   );
 
+  // const order = new Order({
+  //   user: userId,
+  //   products: productDetails,
+  //   totalAmount: totalPrice,
+  //   status: "Pending",
+  // });
+
   const order = new Order({
-    user: userId,
+    user: {
+      userName: user.name,
+      userEmail: user.email,
+    },
     products: productDetails,
     totalAmount: totalPrice,
-    status: "Pending",
+    status: payload.status || "Pending",
+    paymentMethod: "Cash On Delivery",
   });
+  
 
   await order.save();
   return order;
 };
-
 
 const getAllOrders = async () => {
   const orders = await Order.find().populate("user").populate("products");
