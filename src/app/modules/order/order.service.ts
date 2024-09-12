@@ -109,29 +109,22 @@ const getSingleOrder = async (orderId: string) => {
   return order;
 };
 
-const updateOrder = async (orderId: string, updates: Partial<TOrder>) => {
+const updateOrder = async (
+  orderId: string,
+  status: "Pending" | "Delivered" | "Cancelled"
+) => {
   // Check if the order exists
   const order = await Order.findById(orderId);
   if (!order) {
     throw new Error("Order not found.");
   }
 
-  // Check if all updated products exist (if product IDs are updated)
-  if (updates.products) {
-    const productsExist = await Promise.all(
-      updates.products.map(async (productId) =>
-        Product.exists({ _id: productId })
-      )
-    );
+  const updatedOrder = await Order.findByIdAndUpdate(
+    orderId,
+    { status },
+    { new: true, runValidators: true }
+  );
 
-    if (productsExist.some((exists) => !exists)) {
-      throw new Error("One or more products do not exist.");
-    }
-  }
-
-  const updatedOrder = await Order.findByIdAndUpdate(orderId, updates, {
-    new: true,
-  });
 
   return updatedOrder;
 };
@@ -153,5 +146,5 @@ export const orderService = {
   getSingleOrder,
   updateOrder,
   deleteOrder,
-  getAllOrders
+  getAllOrders,
 };

@@ -51,8 +51,9 @@ const getSingleOrder = catchAsync(async (req: Request, res: Response) => {
 
 const updateOrder = catchAsync(async (req: Request, res: Response) => {
   const { orderId } = req.params;
-  const updates = req.body;
-  const updatedOrder = await orderService.updateOrder(orderId, updates);
+  const { status } = req.body;
+
+  const updatedOrder = await orderService.updateOrder(orderId, status);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -61,6 +62,27 @@ const updateOrder = catchAsync(async (req: Request, res: Response) => {
     data: updatedOrder,
   });
 });
+
+// const updateOrder = catchAsync(async (req: Request, res: Response) => {
+//   const { orderId } = req.params;
+//   const { status, products, totalAmount, deliveryDate } = req.body;
+
+//   const updates = {
+//     status,
+//     products,
+//     totalAmount,
+//     deliveryDate,
+//   };
+
+//   const updatedOrder = await orderService.updateOrder(orderId, updates);
+
+//   sendResponse(res, {
+//     statusCode: httpStatus.OK,
+//     success: true,
+//     message: "Order Updated Successfully",
+//     data: updatedOrder,
+//   });
+// });
 
 const deleteOrder = catchAsync(async (req: Request, res: Response) => {
   const { orderId } = req.params;
