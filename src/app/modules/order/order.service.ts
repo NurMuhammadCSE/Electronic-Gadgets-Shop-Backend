@@ -28,6 +28,8 @@ const createOrder = async (payload: TOrder, userId: JwtPayload) => {
         totalPrice += product.price * item.quantity;
         return {
           product: product._id,
+          // name:product.name,
+          // price:product.price,
           quantity: item.quantity,
         };
       } else {
@@ -71,18 +73,29 @@ const createOrder = async (payload: TOrder, userId: JwtPayload) => {
 //   return orders;
 // };
 
-const getAllOrders = async (userId: string) => {
+const getUserAllOrders = async (userId: string) => {
   // Query orders where the user matches the provided userId
   const orders = await Order.find({ user: userId })
     .populate({
       path: "user",
-      select: "-password" // Exclude the password field when populating the user
+      select: "-password", // Exclude the password field when populating the user
     })
     .populate("products"); // Populate product details
 
   return orders;
 };
 
+const getAllOrders = async () => {
+  // Query orders where the user matches the provided userId
+  const orders = await Order.find()
+    .populate({
+      path: "user",
+      select: "-password", // Exclude the password field when populating the user
+    })
+    .populate("products"); // Populate product details
+
+  return orders;
+};
 
 const getSingleOrder = async (orderId: string) => {
   const order = await Order.findById(orderId)
@@ -136,8 +149,9 @@ const deleteOrder = async (orderId: string) => {
 
 export const orderService = {
   createOrder,
-  getAllOrders,
+  getUserAllOrders,
   getSingleOrder,
   updateOrder,
   deleteOrder,
+  getAllOrders
 };
