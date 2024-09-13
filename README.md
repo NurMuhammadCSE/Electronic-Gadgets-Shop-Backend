@@ -1,4 +1,4 @@
-# Electronic Gadgets Shop Backend
+# Electronic Gadgets Hub Backend
 
 ## Live URLs
 
