@@ -18,4 +18,5 @@ router.delete("/:id", (0, auth_1.auth)(user_constant_1.USER_ROLE.admin), product
 //! Reviews
 router.post("/:productId/review", review_controller_1.reviewController.addReview);
 router.get("/:productId/review", review_controller_1.reviewController.getReviewsByProductId);
+router.get("/reviews", review_controller_1.reviewController.getAllReviews);
 exports.ProductRoutes = router;

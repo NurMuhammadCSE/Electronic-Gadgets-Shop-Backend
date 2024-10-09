@@ -25,7 +25,7 @@ const getSingleProduct = (productId) => __awaiter(void 0, void 0, void 0, functi
 });
 const updateProduct = (productId, payload) => __awaiter(void 0, void 0, void 0, function* () {
     const updatedProduct = yield product_model_1.Product.findByIdAndUpdate(productId, payload, {
-        new: true,
+        new: true, // Return the updated document
         runValidators: true, // Run validators on update
     });
     return updatedProduct;

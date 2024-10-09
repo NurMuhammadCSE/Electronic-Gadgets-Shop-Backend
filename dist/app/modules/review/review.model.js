@@ -29,7 +29,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const ReviewSchema = new mongoose_1.Schema({
     productId: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: "Product",
+        ref: "Product", // Refers to the Product model
         required: true,
     },
     // userId: {

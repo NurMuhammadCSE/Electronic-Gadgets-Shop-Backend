@@ -90,7 +90,7 @@ const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const jwtPayload = {
         userId: user._id,
-        name: user.name,
+        name: user.name, // This should be set correctly
         email: user.email,
         role: user.role,
     };
@@ -102,7 +102,7 @@ const login = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const refreshToken = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt_refresh_secret, {
         expiresIn: config_1.default.jwt_refresh_expires_in,
     });
-    const _b = user.toObject(), { password } = _b, userWithoutPassword = __rest(_b, ["password"]);
+    const _a = user.toObject(), { password } = _a, userWithoutPassword = __rest(_a, ["password"]);
     return {
         accessToken,
         refreshToken,

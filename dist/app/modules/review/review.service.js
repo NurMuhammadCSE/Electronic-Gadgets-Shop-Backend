@@ -42,7 +42,13 @@ const getReviewsByProductId = (productId) => __awaiter(void 0, void 0, void 0, f
     // ); // Populate user details if needed
     return reviews;
 });
+// New function to get all reviews
+const getAllReviews = () => __awaiter(void 0, void 0, void 0, function* () {
+    const reviews = yield review_model_1.Review.find(); // Retrieves all reviews from the database
+    return reviews;
+});
 exports.reviewService = {
     addReview,
     getReviewsByProductId,
+    getAllReviews
 };

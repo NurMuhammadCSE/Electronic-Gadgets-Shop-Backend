@@ -38,7 +38,18 @@ const getReviewsByProductId = (0, catchAsync_1.catchAsync)((req, res) => __await
         data: reviews,
     });
 }));
+// New getAllReviews controller
+const getAllReviews = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const reviews = yield review_service_1.reviewService.getAllReviews(); // Fetch all reviews
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "All reviews fetched successfully",
+        data: reviews,
+    });
+}));
 exports.reviewController = {
     addReview,
     getReviewsByProductId,
+    getAllReviews
 };
