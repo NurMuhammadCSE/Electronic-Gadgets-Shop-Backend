@@ -15,5 +15,7 @@ router.delete("/:id", auth(USER_ROLE.admin), productController.deleteProduct);
 //! Reviews
 router.post("/:productId/review", reviewController.addReview);
 router.get("/:productId/review", reviewController.getReviewsByProductId);
+router.get("/reviews", reviewController.getAllReviews);
+
 
 export const ProductRoutes = router;

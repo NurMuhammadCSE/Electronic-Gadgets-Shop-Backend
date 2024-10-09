@@ -30,7 +30,20 @@ const getReviewsByProductId = catchAsync(
   }
 );
 
+
+// New getAllReviews controller
+const getAllReviews = catchAsync(async (req: Request, res: Response) => {
+  const reviews = await reviewService.getAllReviews(); // Fetch all reviews
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "All reviews fetched successfully",
+    data: reviews,
+  });
+});
+
 export const reviewController = {
   addReview,
   getReviewsByProductId,
+  getAllReviews
 };

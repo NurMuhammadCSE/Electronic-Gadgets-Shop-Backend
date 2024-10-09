@@ -48,7 +48,14 @@ const getReviewsByProductId = async (productId: string) => {
   return reviews;
 };
 
+// New function to get all reviews
+const getAllReviews = async () => {
+  const reviews = await Review.find(); // Retrieves all reviews from the database
+  return reviews;
+};
+
 export const reviewService = {
   addReview,
   getReviewsByProductId,
+  getAllReviews
 };
