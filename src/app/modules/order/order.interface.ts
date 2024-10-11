@@ -10,6 +10,8 @@ export type TOrder = {
   products: Array<{
     product: Schema.Types.ObjectId;
     quantity: number;
+    // name:string;
+    // price:number
   }>;
   totalAmount: number; // Total amount for the order
   status: "Pending" | "Delivered" | "Cancelled"; // Order status

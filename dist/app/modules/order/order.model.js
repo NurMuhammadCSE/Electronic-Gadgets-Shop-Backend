@@ -45,6 +45,14 @@ const orderSchema = new mongoose_1.Schema({
                 type: Number,
                 required: true,
             },
+            // name: {
+            //   type: String,
+            //   required: true,
+            // },
+            // price: {
+            //   type: Number,
+            //   required: true,
+            // },
         },
     ],
     totalAmount: { type: Number, required: true },

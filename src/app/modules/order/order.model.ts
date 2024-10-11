@@ -23,6 +23,14 @@ const orderSchema: Schema = new Schema<TOrder>(
           type: Number,
           required: true,
         },
+        // name: {
+        //   type: String,
+        //   required: true,
+        // },
+        // price: {
+        //   type: Number,
+        //   required: true,
+        // },
       },
     ],
     totalAmount: { type: Number, required: true },
